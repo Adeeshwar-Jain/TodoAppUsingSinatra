@@ -1,0 +1,138 @@
+<!Doctype html>
+	<html>
+	<head>
+		<title> my_to_do_app</title>
+		<style type="text/css">
+		.buttons_c
+		{
+			text-align: center; 
+			font-weight: bold;   
+		}	
+		.buttons_l
+		{
+			color:#800080;
+			font-size:40px;
+			font-family:"Times New Roman";
+			text-align:center;
+			text-decoration: underline;
+			font-weight: bold				
+		}
+		.a{
+			margin-left: 10%;
+   		}
+   		.b
+   		{
+   			font-weight:bold;
+   			text-transform:capitalize
+   		}
+   		.d{
+   			width: 75px;
+   			height: 75px;
+   			color: black;
+   			border-color: black; 
+		    border-width: 2px;
+		    border-style: solid;
+		    font-weight:bold;		    
+		}
+		</style>
+	</head>
+	<body>
+		<p class="buttons_l">TASKS TO DO </p>
+		<br>
+		<form class="buttons_c" action="/add" method="POST">
+			Task: <input type="text" name="task"/>
+			<input class="buttons_c" type="submit" value="Add Task"/>
+		</form>
+		<br><br>
+		<span class="d"style="color:red;margin-left:50px;">RED</span> : URGENT
+		<span class="d"style="color:darkgreen;margin-left:60px;">DARKGREEN</span> : IMPORTANT
+		<span class="d"style="margin-left:70px;text-decoration: underline;">BLACK</span> : URGENT AND IMPORTANT
+		<span class="d"style="color:orangered;margin-left:80px;font-weight:normal">ORANGERED</span> : NOT URGENT AND NOT IMPORTANT	
+
+		<br><br>
+		<div class="a">
+		<table  border=1 >	<!-- #&emsp;&emsp; -->	
+			<th colspan="2"style= "color:#00008b" >TASKS </th>	
+		    <th colspan="2"style= "color:#00008b" >STATE </th>     	
+		    <th colspan="2"style= "color:#00008b" >COMPLETED/NOT COMPLETED </th>         
+		    <th colspan="3"style= "color:#00008b" >URGENT/IMPORTANT </th>  
+		    <th style= "color:#00008b" >DELETE TASK </th>   
+
+			<%tasks.each do|t|%>
+			<tr>
+				<p>
+					<%if t.urgent && !t.important %>
+<!--red-->				<td colspan="2"class ="b" style="color:#ff0000"> <%= t.task%></td>
+					<%elsif t.important && !t.urgent %>
+<!--darkgreen-->		<td colspan="2"class ="b"style="color:#006400"> <%=t.task%></td>		
+					<%elsif t.urgent&&t.important%>
+<!--black--> 			<td colspan="2"class ="b" style="color:#000000;text-decoration:underline">  						<%=t.task%></td>
+					<%elsif !t.urgent && !t.important%>
+<!--orangered-->	  	<td colspan="2"class ="b"style="color:#ff4500;font-weight:normal">
+						<%=t.task%></td>
+					<%end%>
+
+					<form  action="/done" method="post">
+						<input type="hidden" name="task" value="<%=t.task%>"/>	
+
+						<%if t.done%>										
+							<td colspan="2"><input  type="submit" value="Undone"/> </td>		
+							<td>									
+							<label>
+								<input type="radio" name="complete" checked disabled>Complete
+							</label>
+	    					</td>						
+	    					<td>
+							<label>
+								<input  type="radio" name="complete" disabled >Not Complete
+							</label>
+	    					</td>   	
+			    
+		    			<%else%>					
+							<td colspan="2"  ><input type="submit" value="Done"/> </td> 		
+							<td>									
+							<label>
+								<input   type="radio" name="complete" disabled>Complete
+							</label>
+	    					</td>							
+	    					<td>
+							<label>
+								<input  type="radio" name="complete" checked  disabled>Not Complete
+							</label>
+	    					</td>
+			    		<%end%>					
+		    		</form>
+
+					<form  action="/priority" method="POST">
+						<input type="hidden" name="task" value="<%=t.task%>"/>	
+						 <td>
+							<label>
+								<input type="checkbox" name="urgent" >Urgent
+							</label>
+							</td>
+							<td>
+							<label>
+								<input type="checkbox" name="important" >Important
+							</label>
+							</td>
+							<td>
+							<label>
+								<input type="submit" value="Set priority"/>
+							</label>
+						</td>
+					</form>	
+					<form  action="/del_task" method="post">
+						<input type="hidden" name="task" value="<%=t.task%>"/>	
+						 <td>
+							<label>
+								<input style="margin-left: 27.5%" type="submit" value="Delete"/>
+							</label>
+						</td>
+					</form>	
+				</p>
+			</tr>				
+			<%end%>	
+		</table>
+		</div>	
+	</body>
+</html>
