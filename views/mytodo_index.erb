@@ -26,14 +26,13 @@
    			text-transform:capitalize
    		}
    		.d{
-   			width: 75px;
-   			height: 75px;
-   			color: black;
+   			width: 50px;
+   			height: 15px;
+   			display:inline-block;
    			border-color: black; 
 		    border-width: 2px;
 		    border-style: solid;
-		    font-weight:bold;		    
-		}
+		   }
 		</style>
 	</head>
 	<body>
@@ -44,10 +43,10 @@
 			<input class="buttons_c" type="submit" value="Add Task"/>
 		</form>
 		<br><br>
-		<span class="d"style="color:red;margin-left:50px;">RED</span> : URGENT
-		<span class="d"style="color:darkgreen;margin-left:60px;">DARKGREEN</span> : IMPORTANT
-		<span class="d"style="margin-left:70px;text-decoration: underline;">BLACK</span> : URGENT AND IMPORTANT
-		<span class="d"style="color:orangered;margin-left:80px;font-weight:normal">ORANGERED</span> : NOT URGENT AND NOT IMPORTANT	
+		<span class="d"style="margin-left:50px;background-color:red;"></span><span style="color:red;font-weight:bold"> : URGENT</span>
+		<span class="d"style="background-color:darkgreen;margin-left:60px;"></span><span style="color:darkgreen;font-weight:bold"> : IMPORTANT</span>
+		<span class="d"style="background-color:black;margin-left:70px;"></span> : <span style="color:black;font-weight:bold;text-decoration: underline;">URGENT AND IMPORTANT</span>
+		<span class="d"style="background-color:orangered;margin-left:80px;"></span><span style="color:red;font-weight:normal"> : NOT URGENT AND NOT IMPORTANT</span>
 
 		<br><br>
 		<div class="a">
